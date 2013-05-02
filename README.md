@@ -2,8 +2,14 @@ RestHapi
 =================
 
 Simple framework to implement a REST Api with HAPI.
+version 0.0.1
 
+## Installation
+```
+npm install resthapi
+```
 
+## Utilisation
 ```
 var RestHapiServer = require('resthapi'),
     path = require('path'),

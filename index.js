@@ -8,6 +8,8 @@ var _ = require('lodash')
 
 /**
  * RestHapiServer
+ * Creates the REST Hapi server
+ * with the given settings
  * @type {Function}
  */
 var RestHapiServer = module.exports = function RestHapiServer(options, readyCallback) {
