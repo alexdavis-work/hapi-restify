@@ -1,0 +1,36 @@
+{
+  "name": "resthapi",
+  "description": "Simple framework to implement a REST Api with HAPI",
+  "maintainers":[
+    { 
+      "name": "Geoffroy Pierret",
+      "url": "https://github.com/gpierret"
+    }
+  ],
+  "contributors":[
+    {
+      "name": "Geoffroy Pierret",
+      "url": "https://github.com/gpierret"
+    }
+  ],
+  "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/gpierret/resthapi.git"
+  },
+  "bugs": { 
+    "url": "http://github.com/gpierret/resthapi/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://github.com/gpierret/resthapi/raw/master/LICENSE"
+    }
+  ],
+  "dependencies": {
+    "lodash": "1.2.1",
+    "mongoose": "3.6.8",
+    "hapi": "1.0.0"
+  },
+  "main": "index.js"
+}
