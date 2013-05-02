@@ -1,13 +1,13 @@
 {
   "name": "resthapi",
   "description": "Simple framework to implement a REST Api with HAPI",
-  "maintainers":[
-    { 
+  "maintainers": [
+    {
       "name": "Geoffroy Pierret",
       "url": "https://github.com/gpierret"
     }
   ],
-  "contributors":[
+  "contributors": [
     {
       "name": "Geoffroy Pierret",
       "url": "https://github.com/gpierret"
@@ -18,7 +18,7 @@
     "type": "git",
     "url": "http://github.com/gpierret/resthapi.git"
   },
-  "bugs": { 
+  "bugs": {
     "url": "http://github.com/gpierret/resthapi/issues"
   },
   "licenses": [
@@ -32,5 +32,13 @@
     "mongoose": "3.6.8",
     "hapi": "1.0.0"
   },
-  "main": "index.js"
+  "main": "index.js",
+  "readme": "RestHapi\n=================\n\nSimple framework to implement a REST Api with HAPI.\n\n\n```\nvar RestHapiServer = require('resthapi'),\n    path = require('path'),\n    settings = {\n       app: {\n         host: 'localhost',\n         port: 33000\n       },\n       db: {\n         name: 'databaseName',\n         host: 'localhost',\n         port: 27017\n       },\n       models: {\n         path: __dirname + '/models/'\n       },\n       controllers: {\n         path: __dirname + '/controllers'\n       }\n     };\n\nvar http = RestHapiServer(\n  settings,\n  function () {\n    http.start();\n  }\n);\n\n// RestHapi is now listening on http://localhost:33000/\n```",
+  "readmeFilename": "README.md",
+  "_id": "resthapi@0.0.1",
+  "dist": {
+    "shasum": "0d7f284b56dcc0f22d1210d852236d1a62dc6c70"
+  },
+  "_resolved": "git://github.com/gpierret/resthapi.git#311116ba183fac88dcd1329cacc0b67c1bc820d0",
+  "_from": "resthapi@git://github.com/gpierret/resthapi.git"
 }

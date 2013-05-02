@@ -1,27 +1,45 @@
+/**
+ * Dependencies
+ */
 var _ = require('lodash')
   , mongoose = require('mongoose')
   , hapi = require('hapi')
   , Router = require('./lib/router/router');
 
+/**
+ * RestHapiServer
+ * @type {Function}
+ */
 var RestHapiServer = module.exports = function RestHapiServer(options, readyCallback) {
+
+  // Server init
   var http = new hapi.Server(
     options.app.host,
     options.app.port,
     options.hapi || {}
   );
+
+  // Database connection
   options.db = mongoose.createConnection(
     'mongodb://' + options.db.host +
     ':' + options.db.port + '/' + options.db.name
   );
   http.db = options.db;
-  // settings.models.path > walk >
-  // new router
+
+  // Walk directories to find
+  // controllers & models
   var router = new Router(options)
   router.findModels(
     function () {
-      http.addRoutes(
-        router.getRoutes()
-      );
+      router.findControllers(
+        function () {
+          // Adding resultant routes
+          http.addRoutes(
+            router.getRoutes()
+          );
+        }
+      )
+      // Callback for server start
       readyCallback();
     }
   );
