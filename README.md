@@ -1,4 +1,4 @@
-RestHapi
+Hapi-Restify
 =================
 
 Simple framework to implement a REST Api with HAPI.
@@ -11,7 +11,7 @@ npm install resthapi
 
 ## Utilisation
 ```
-var RestHapiServer = require('resthapi'),
+var HapiServer = require('hapi-restify'),
     path = require('path'),
     settings = {
        app: {
@@ -31,12 +31,12 @@ var RestHapiServer = require('resthapi'),
        }
      };
 
-var http = RestHapiServer(
+var http = HapiServer(
   settings,
   function () {
     http.start();
   }
 );
 
-// RestHapi is now listening on http://localhost:33000/
+// Server is now listening on http://localhost:33000/
 ```

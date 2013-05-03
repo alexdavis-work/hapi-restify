@@ -2,8 +2,8 @@
  * Dependencies
  */
 var _ = require('lodash')
-  , mongoose = require('mongoose')
-  , hapi = require('hapi')
+  , Mongoose = require('mongoose')
+  , Hapi = require('hapi')
   , Router = require('./lib/router/router');
 
 /**
@@ -15,14 +15,14 @@ var _ = require('lodash')
 var RestHapiServer = module.exports = function RestHapiServer(options, readyCallback) {
 
   // Server init
-  var http = new hapi.Server(
+  var http = new Hapi.Server(
     options.app.host,
     options.app.port,
     options.hapi || {}
   );
 
   // Database connection
-  options.db = mongoose.createConnection(
+  options.db = Mongoose.createConnection(
     'mongodb://' + options.db.host +
     ':' + options.db.port + '/' + options.db.name
   );
