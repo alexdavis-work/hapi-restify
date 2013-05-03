@@ -16,15 +16,15 @@
   "version": "0.0.1-alpha",
   "repository": {
     "type": "git",
-    "url": "http://github.com/gpierret/https://github.com/gpierret/hapi-restify.git.git"
+    "url": "https://github.com/gpierret/hapi-restify.git"
   },
   "bugs": {
-    "url": "http://github.com/gpierret/https://github.com/gpierret/hapi-restify.git/issues"
+    "url": "https://github.com/gpierret/hapi-restify.git/issues"
   },
   "licenses": [
     {
       "type": "MIT",
-      "url": "http://github.com/gpierret/https://github.com/gpierret/hapi-restify.git/raw/master/LICENSE"
+      "url": "http://github.com/gpierret/hapi-restify.git/raw/master/LICENSE"
     }
   ],
   "dependencies": {
@@ -33,6 +33,5 @@
     "hapi": "1.0.0"
   },
   "main": "index.js",
-  "readmeFilename": "README.md",
-  "_id": "https://github.com/gpierret/hapi-restify.git@0.0.1-alpha"
+  "readmeFilename": "README.md"
 }

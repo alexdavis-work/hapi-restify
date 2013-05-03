@@ -39,10 +39,12 @@ var RestHapiServer = module.exports = function RestHapiServer(options, readyCall
           http.addRoutes(
             router.getRoutes()
           );
+          // Callback for server start
+          if (typeof readyCallback === 'function') {
+            readyCallback();
+          }
         }
-      )
-      // Callback for server start
-      readyCallback();
+      );
     }
   );
   return http;
