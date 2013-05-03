@@ -1,5 +1,5 @@
 {
-  "name": "https://github.com/gpierret/hapi-restify.git",
+  "name": "hapi-restify",
   "description": "Simple framework to implement a REST Api with HAPI",
   "maintainers": [
     {
@@ -29,7 +29,7 @@
   ],
   "dependencies": {
     "lodash": "1.2.1",
-    "Mongoose": "3.6.8",
+    "mongoose": "3.6.8",
     "hapi": "1.0.0"
   },
   "main": "index.js",
