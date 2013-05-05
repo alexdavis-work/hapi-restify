@@ -5,13 +5,13 @@ var RestifyServer = require('hapi-restify')
 var http = RestifyServer(
   settings,
   function () {
-    http.start();
-    console.log(
-      'Server is f*cking listening on ' +
-        settings.app.host + ':' + settings.app.port
-    );
-
     var fixtures = require('./fixtures/main')(http.db);
     console.log('Fixtures loaded.');
+
+    http.start();
+    console.log(
+      'LolcatzAPI server is listening on ' +
+        settings.app.host + ':' + settings.app.port
+    );
   }
 );
