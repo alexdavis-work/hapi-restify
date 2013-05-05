@@ -1,0 +1,16 @@
+{
+  "name": "lolcat-api",
+  "description": "LolCat API",
+  "version": "0.0.1",
+  "author": "Meow <Meow@gmail.com>",
+  "main": "./server.js",
+  "engines": {
+    "node": "0.10.5"
+  },
+  "dependencies": {
+    "crypto": "0.0.3",
+    "lodash": "1.2.1",
+    "hapi-restify": "git://github.com/gpierret/hapi-restify.git",
+    "mongoose-fixtures": "git://github.com/joaoneto/mongoose-fixtures.git"
+  }
+}
