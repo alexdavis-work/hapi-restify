@@ -9,7 +9,7 @@ version 0.0.1-alpha
 npm install hapi-restify
 ```
 
-## Utilisation
+## Usage
 ```
 var Restify = require('hapi-restify'),
     path = require('path'),
@@ -37,6 +37,9 @@ var http = Restify.createServer(
     http.start();
   }
 );
-
 // Server is now listening on http://localhost:33000/
 ```
+
+## Note
+This module has been written for personnal purposes.
+It does not pretend to be perfect, but you can always fork it as a starting point.
