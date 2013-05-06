@@ -1,5 +1,5 @@
 var path = require('path');
-var settings = {
+var settings = module.exports = {
   app: {
     host: 'localhost',
     port: 33000
@@ -16,5 +16,3 @@ var settings = {
     path: __dirname + '/../controllers'
   }
 };
-
-module.exports = settings;

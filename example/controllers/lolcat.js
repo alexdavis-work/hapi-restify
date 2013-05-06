@@ -1,13 +1,13 @@
 var _ = require('lodash')
-,   BaseController = require('hapi-restify/lib/controller/base');
+,   Restify = require('hapi-restify');
 
-var LolCatController = module.exports = function LolCatController(options) {
-  BaseController.prototype.constructor.call(this, options);
+var LolCatController = module.exports = function LolCatController() {
+  Restify.Controller.prototype.constructor.apply(this, arguments);
 };
 
 _.extend(
   LolCatController.prototype,
-  BaseController.prototype
+  Restify.Controller.prototype
 );
 
 _.extend(

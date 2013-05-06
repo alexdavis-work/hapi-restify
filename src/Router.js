@@ -1,7 +1,7 @@
 var _ = require('lodash')
   , fs = require('fs')
   , Mongoose = require('mongoose')
-  , BaseController = require('./../controller/base');
+  , Controller = require('./Controller');
 
 /**
  * Router
@@ -41,9 +41,12 @@ _.extend(
 
     addIndexController: function () {
       var controllerClass = require(
-        './../controller/index'
+        './Controller/Index'
       );
-      var controller = new controllerClass();
+      var controller = new controllerClass({
+        router: this, name: 'index',
+        db: this.options.db, noModel: true
+      });
       this.appRoutes.push({
         method: 'GET', path: '/',
         config: { handler: controller.indexAction.bind(controller) }
@@ -62,11 +65,10 @@ _.extend(
         if (this.controllers[name]) {
           var controllerClass = this.controllers[name];
         } else {
-          var controllerClass = BaseController;
+          var controllerClass = Controller;
         }
         var controller = new controllerClass({
-          router: this,
-          name: name,
+          router: this, name: name,
           db: this.options.db
         });
         controller.init();

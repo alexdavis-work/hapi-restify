@@ -7,15 +7,17 @@ var _ = require('lodash')
  * Handles basic REST methods
  * @type {Function}
  */
-var BaseController = module.exports = function BaseController(options) {
+var Controller = module.exports = function Controller(options) {
   this.name = options.name;
   this.db = options.db;
-  this.model = this.db.model(this.name);
+  if (!options || !options.noModel) {
+    this.model = this.db.model(this.name);
+  }
   this.router = options.router;
 };
 
 _.extend(
-  BaseController.prototype,
+  Controller.prototype,
   {
     init: function () {},
 
