@@ -21,7 +21,7 @@ var Restify = module.exports = {
     var http = new Hapi.Server(
       options.app.host,
       options.app.port,
-      options.hapi || {}
+      options.server || {}
     );
 
     // Database connection

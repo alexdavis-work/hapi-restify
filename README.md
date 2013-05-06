@@ -2,16 +2,16 @@ Hapi-Restify
 =================
 
 Simple framework to implement a REST Api with HAPI.
-version 0.0.1
+version 0.0.1-alpha
 
 ## Installation
 ```
-npm install resthapi
+npm install hapi-restify
 ```
 
 ## Utilisation
 ```
-var HapiServer = require('hapi-restify'),
+var Restify = require('hapi-restify'),
     path = require('path'),
     settings = {
        app: {
@@ -31,7 +31,7 @@ var HapiServer = require('hapi-restify'),
        }
      };
 
-var http = HapiServer(
+var http = Restify.createServer(
   settings,
   function () {
     http.start();

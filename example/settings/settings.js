@@ -14,5 +14,8 @@ var settings = module.exports = {
   },
   controllers: {
     path: __dirname + '/../controllers'
+  },
+  server: {
+    cors: true
   }
 };

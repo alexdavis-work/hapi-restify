@@ -26,42 +26,11 @@ _.extend(
      */
 
     getCollection: function(request) {
-      if (request.query.name) {
-        request.reply(
-          this.findModel(request)
-        );
-      } else {
-        this.model.find(
-          {},
-          function(err, model) {
-            request.reply(err || model);
-          }
-        )
-      }
-    },
-
-    findModel: function(request) {
-      this.model.findOne(
-        {
-          name: request.query.name
-        },
-        function(err, model) {
-          request.reply(err || model);
-        }
-      );
-    },
-
-    addModel: function(request) {
       var self = this;
-      var model = new this.model(
-        request.payload
-      ).save(
+      this.model.find(
+        {},
         function(err, model) {
-          self.modelWriteReply(
-            err, model,
-            request.payload,
-            request.reply
-          );
+          self.checkHasBeenFound(err, model, request.reply);
         }
       );
     },
@@ -71,7 +40,7 @@ _.extend(
       this.model.findById(
         request.params.id,
         function(err, model) {
-          self.modelGetReply(err, model, request.reply);
+          self.checkHasBeenFound(err, model, request.reply);
         }
       );
     },
@@ -81,7 +50,7 @@ _.extend(
       this.model.findByIdAndRemove(
         request.params.id,
         function(err, model) {
-          self.modelGetReply(err, model, request.reply);
+          self.checkHasBeenFound(err, model, request.reply);
         }
       );
     },
@@ -99,7 +68,7 @@ _.extend(
               )
               model.save(
                 function(err, model) {
-                  self.modelWriteReply(
+                  self.checkHasBeenUpdated(
                     err, model,
                     request.payload,
                     request.reply
@@ -113,7 +82,33 @@ _.extend(
       );
     },
 
-    modelGetReply: function (error, model, successCallback, errorCallback) {
+    addModel: function(request) {
+      var self = this;
+      var model = new this.model(
+        request.payload
+      ).save(
+        function(err, model) {
+          self.checkHasBeenUpdated(
+            err, model,
+            request.payload,
+            request.reply
+          );
+        }
+      );
+    },
+
+    findModel: function(request) {
+      this.model.findOne(
+        {
+          name: request.query.name
+        },
+        function(err, model) {
+          request.reply(err || model);
+        }
+      );
+    },
+
+    checkHasBeenFound: function (error, model, successCallback, errorCallback) {
       if (!errorCallback) {
         errorCallback = successCallback;
       }
@@ -129,7 +124,7 @@ _.extend(
       }
     },
 
-    modelWriteReply: function (error, model, params, successCallback, errorCallback) {
+    checkHasBeenUpdated: function (error, model, params, successCallback, errorCallback) {
       if (!errorCallback) {
         errorCallback = successCallback;
       }
