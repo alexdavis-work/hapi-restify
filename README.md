@@ -42,4 +42,4 @@ var http = Restify.createServer(
 
 ## Note
 This module has been written for personnal purposes.
-It does not pretend to be perfect, but you can always fork it as a starting point.
+It does not pretend to be perfect, but you can still fork it as a starting point.

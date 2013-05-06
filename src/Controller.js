@@ -60,7 +60,7 @@ _.extend(
       this.model.findById(
         request.params.id,
         function(err, model) {
-          self.modelGetReply(
+          self.checkHasBeenFound(
             err, model,
             function(model) {
               model.set(
