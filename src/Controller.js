@@ -65,7 +65,7 @@ _.extend(
             function(model) {
               model.set(
                 request.payload
-              )
+              );
               model.save(
                 function(err, model) {
                   self.checkHasBeenUpdated(

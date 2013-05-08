@@ -58,7 +58,7 @@ _.extend(
       if (!this.controllers.index) {
         this.addIndexController();
       }
-      for (name in this.models) {
+      for (var name in this.models) {
         // Instantiate model/controller
         // for the current schema
         this.models[name](Mongoose);

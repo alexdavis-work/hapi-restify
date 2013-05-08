@@ -13,7 +13,7 @@
       "url": "https://github.com/gpierret"
     }
   ],
-  "version": "0.0.1-alpha",
+  "version": "0.0.1-beta",
   "repository": {
     "type": "git",
     "url": "https://github.com/gpierret/hapi-restify.git"
@@ -38,6 +38,8 @@
     "hapi",
     "api",
     "rest",
-    "restify"
+    "restify",
+    "mongo",
+    "mongoose"
   ]
 }

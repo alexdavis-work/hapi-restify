@@ -9,9 +9,9 @@ module.exports = function (db) {
   // Adapt data models
   // from objects to array
   var newData = [];
-  for (model in data) {
+  for (var model in data) {
     newData[model] = [];
-    for (item in data[model]) {
+    for (var item in data[model]) {
       newData[model].push(
         data[model][item]
       );

@@ -1,7 +1,7 @@
 Hapi-Restify
 =================
 
-Simple framework to implement a REST Api with HAPI.
+A REST Api with HAPI. Built from your Mongo models.
 version 0.0.1-alpha
 
 ## Installation
@@ -39,7 +39,3 @@ var http = Restify.createServer(
 );
 // Server is now listening on http://localhost:33000/
 ```
-
-## Note
-This module has been written for personnal purposes.
-It does not pretend to be perfect, but you can still fork it as a starting point.
