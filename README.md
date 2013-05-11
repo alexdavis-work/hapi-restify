@@ -2,7 +2,7 @@ Hapi-Restify
 =================
 
 A REST Api with HAPI. Built from your Mongo models.
-version 0.0.1-alpha
+_version 0.0.1-beta_
 
 ## Installation
 ```
