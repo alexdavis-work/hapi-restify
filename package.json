@@ -27,10 +27,13 @@
       "url": "http://github.com/gpierret/hapi-restify.git/raw/master/LICENSE"
     }
   ],
+  "engines": {
+    "node": ">= 0.10.5"
+  },
   "dependencies": {
-    "lodash": "1.2.1",
-    "mongoose": "3.6.8",
-    "hapi": "1.0.0"
+    "lodash": ">= 1.2.1",
+    "mongoose": ">= 3.6.8",
+    "hapi": ">= 1.1.0"
   },
   "main": "index.js",
   "readmeFilename": "README.md",
