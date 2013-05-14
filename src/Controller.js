@@ -19,7 +19,29 @@ var Controller = module.exports = function Controller(options) {
 _.extend(
   Controller.prototype,
   {
-    init: function () {},
+    init: function () {
+      // Push REST routes for the controller
+      this.router.appRoutes.push({
+        method: 'GET', path: '/' + this.name,
+        config: { handler: this.getCollection.bind(this) }
+      });
+      this.router.appRoutes.push({
+        method: 'POST', path: '/' + this.name,
+        config: { handler: this.addModel.bind(this) }
+      });
+      this.router.appRoutes.push({
+        method: 'GET', path: '/' + this.name + '/{id}',
+        config: { handler: this.getModel.bind(this) }
+      });
+      this.router.appRoutes.push({
+        method: 'PATCH', path: '/' + this.name + '/{id}',
+        config: { handler: this.updateModel.bind(this) }
+      });
+      this.router.appRoutes.push({
+        method: 'DELETE', path: '/' + this.name + '/{id}',
+        config: { handler: this.deleteModel.bind(this) }
+      });
+    },
 
     /**
      * TODO : Add correct HTTP responses codes and headers

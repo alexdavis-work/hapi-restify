@@ -14,6 +14,7 @@ _.extend(
   LolCatController.prototype,
   {
     init: function () {
+      Restify.Controller.prototype.init.call(this);
       var self = this;
       this.router.appRoutes.push({
         method: 'GET', path: '/' + this.name + '/top',

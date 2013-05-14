@@ -72,27 +72,6 @@ _.extend(
           db: this.options.db
         });
         controller.init();
-        // Push REST routes for the controller
-        this.appRoutes.push({
-          method: 'GET', path: '/' + name,
-          config: { handler: controller.getCollection.bind(controller) }
-        });
-        this.appRoutes.push({
-          method: 'POST', path: '/' + name,
-          config: { handler: controller.addModel.bind(controller) }
-        });
-        this.appRoutes.push({
-          method: 'GET', path: '/' + name + '/{id}',
-          config: { handler: controller.getModel.bind(controller) }
-        });
-        this.appRoutes.push({
-          method: 'PATCH', path: '/' + name + '/{id}',
-          config: { handler: controller.updateModel.bind(controller) }
-        });
-        this.appRoutes.push({
-          method: 'DELETE', path: '/' + name + '/{id}',
-          config: { handler: controller.deleteModel.bind(controller) }
-        });
       }
       return this;
     },
