@@ -15,10 +15,9 @@ _.extend(
   {
     init: function () {
       Restify.Controller.prototype.init.call(this);
-      var self = this;
       this.router.appRoutes.push({
         method: 'GET', path: '/' + this.name + '/top',
-        config: { handler: self.getTopLolcats.bind(self) }
+        config: { handler: this.getTopLolcats.bind(this) }
       });
     },
 

@@ -52,7 +52,9 @@ _.extend(
       this.model.find(
         {},
         function(err, model) {
-          self.checkHasBeenFound(err, model, request.reply);
+          self.checkHasBeenFound(
+            request, err, model
+          );
         }
       );
     },
@@ -62,7 +64,11 @@ _.extend(
       this.model.findById(
         request.params.id,
         function(err, model) {
-          self.checkHasBeenFound(err, model, request.reply);
+          self.checkHasBeenFound(
+            request,
+            err, model,
+            request.params.id
+          );
         }
       );
     },
@@ -72,7 +78,15 @@ _.extend(
       this.model.findByIdAndRemove(
         request.params.id,
         function(err, model) {
-          self.checkHasBeenFound(err, model, request.reply);
+          self.checkHasBeenDeleted(
+            request,
+            err, model,
+            request.params.id,
+            function () {
+              var response = new Hapi.response.Obj({ deleted: true });
+              request.reply(response);
+            }
+          );
         }
       );
     },
@@ -83,7 +97,9 @@ _.extend(
         request.params.id,
         function(err, model) {
           self.checkHasBeenFound(
+            request,
             err, model,
+            request.params.id,
             function(model) {
               model.set(
                 request.payload
@@ -91,14 +107,14 @@ _.extend(
               model.save(
                 function(err, model) {
                   self.checkHasBeenUpdated(
+                    request,
                     err, model,
-                    request.payload,
-                    request.reply
+                    request.params.id,
+                    request.payload
                   );
                 }
               );
-            },
-            request.reply
+            }
           );
         }
       );
@@ -110,10 +126,10 @@ _.extend(
         request.payload
       ).save(
         function(err, model) {
-          self.checkHasBeenUpdated(
+          self.checkHasBeenAdded(
+            request,
             err, model,
-            request.payload,
-            request.reply
+            request.payload
           );
         }
       );
@@ -125,40 +141,54 @@ _.extend(
           name: request.query.name
         },
         function(err, model) {
-          request.reply(err || model);
+          self.checkHasBeenFound(
+            request,
+            err, model,
+            request.query.name
+          );
         }
       );
     },
 
-    checkHasBeenFound: function (error, model, successCallback, errorCallback) {
-      if (!errorCallback) {
-        errorCallback = successCallback;
-      }
-      if (error || !model) {
-        if (!error) {
-          error = new Error('Item could not be found');
-        }
-        var response = new Hapi.error.notFound(error.message);
-        response.code = 404;
-        errorCallback(response);
-      } else {
-        successCallback(model);
-      }
+    checkHasBeenFound: function (request, error, model, id, successCallback, errorCallback) {
+      this.globalCheck(request, error, model, id, 200, 404,'Item "' + id + '" could not be found', successCallback, errorCallback);
     },
 
-    checkHasBeenUpdated: function (error, model, params, successCallback, errorCallback) {
-      if (!errorCallback) {
-        errorCallback = successCallback;
-      }
+    checkHasBeenAdded: function (request, error, model, params, successCallback, errorCallback) {
+      this.globalCheck(request, error, model, params, 201, 400,  'Item could not be created', successCallback, errorCallback);
+    },
+
+    checkHasBeenUpdated: function (request, error, model, id, params, successCallback, errorCallback) {
+      this.globalCheck(request, error, model, params, 200, 400, 'Item "' + id + '" could not be updated', successCallback, errorCallback);
+    },
+
+    checkHasBeenDeleted: function (request, error, model, id, successCallback, errorCallback) {
+      this.globalCheck(request, error, model, id, 200, 400, 'Item "' + id + '" could not be deleted', successCallback, errorCallback);
+    },
+
+    globalCheck: function (request, error, model, params, validCode, errorCode, message, successCallback, errorCallback) {
       if (error || !model) {
         if (!error) {
-          error = new Error('Item could not be created');
+          error = new Error(message);
         }
-        var response = new Hapi.error.badRequest(error.message);
-        response.code = 500;
-        errorCallback(response);
+        if (typeof errorCallback !== 'function') {
+          var response = (errorCode === 404) ?
+            new Hapi.error.notFound(error.message) :
+            new Hapi.error.badRequest(error.message);
+          response.code = errorCode;
+          request.reply(response);
+        } else {
+          errorCallback(error);
+        }
+
       } else {
-        successCallback(model);
+        if (typeof successCallback !== 'function') {
+          var response = new Hapi.response.Obj(model);
+          response.code(201);
+          request.reply(response);
+        } else {
+          successCallback(model);
+        }
       }
     }
   }
