@@ -135,16 +135,14 @@ _.extend(
       );
     },
 
-    findModel: function(request) {
+    findModel: function(request, where, id) {
       this.model.findOne(
-        {
-          name: request.query.name
-        },
+        where,
         function(err, model) {
           self.checkHasBeenFound(
             request,
             err, model,
-            request.query.name
+            id || ''
           );
         }
       );
@@ -170,6 +168,15 @@ _.extend(
       if (error || !model) {
         if (!error) {
           error = new Error(message);
+        } else {
+          /**
+           * TODO : Displaying thrown errors completely
+           * @type {Hapi.response.Obj} || {Hapi.error.*}
+           * @url https://github.com/spumko/hapi/issues/855
+           *
+          error = new Hapi.response.Obj(error);
+          error.code(400);
+          */
         }
         if (typeof errorCallback !== 'function') {
           var response = (errorCode === 404) ?
