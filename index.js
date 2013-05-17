@@ -21,19 +21,20 @@ var Restify = module.exports = {
     var http = new Hapi.Server(
       options.app.host,
       options.app.port,
-      options.server || {}
+      options || {}
     );
 
     // Database connection
-    options.db = Mongoose.createConnection(
-      'mongodb://' + options.db.host +
-      ':' + options.db.port + '/' + options.db.name
+    http.db = Mongoose.createConnection(
+      'mongodb://' + options.app.db.host +
+      ':' + options.app.db.port + '/' + options.app.db.name
     );
-    http.db = options.db;
 
     // Walk directories to find
     // controllers & models
-    var router = new Router(options)
+    var router = new Router(
+      _.extend(options, { db: http.db })
+    );
     router.findModels(
       function () {
         router.findControllers(

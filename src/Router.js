@@ -20,7 +20,7 @@ _.extend(
     findModels: function (callback) {
       this.walkDir(
         'models',
-        this.options.models.path,
+        this.options.app.models.path,
         function(path, file, array) {
           array[file] = require(path);
         },
@@ -31,7 +31,7 @@ _.extend(
     findControllers: function (callback) {
       this.walkDir(
         'controllers',
-        this.options.controllers.path,
+        this.options.app.controllers.path,
         function(path, file, array) {
           array[file] = require(path);
         },
@@ -44,8 +44,10 @@ _.extend(
         './Controller/Index'
       );
       var controller = new controllerClass({
-        router: this, name: 'index',
-        db: this.options.db, noModel: true
+        router: this,
+        name: 'index',
+        db: this.options.app.db,
+        noModel: true
       });
       this.appRoutes.push({
         method: 'GET', path: '/',
@@ -68,7 +70,8 @@ _.extend(
           var controllerClass = Controller;
         }
         var controller = new controllerClass({
-          router: this, name: name,
+          router: this,
+          name: name,
           db: this.options.db
         });
         controller.init();

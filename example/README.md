@@ -28,7 +28,8 @@ module.exports = function (Mongoose) {
 
 ## Controller
 The `lolcat.js` controller has only been created here to implement the `/lolcat/top` method.
-Other request methods are inherited from the base class `Restify.Controller`
+Other request methods are inherited from the base class `Restify.Controller`.
+_Note: If you do not need to add extra API method on your model, you do not need to create a controller associated to the model, Restify will use the default one._
 
 ## Use
 ```bash
