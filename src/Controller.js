@@ -23,7 +23,7 @@ _.extend(
       // Push REST routes for the controller
       this.router.appRoutes.push({
         method: 'GET', path: '/' + this.name,
-        config: { handler: this.getCollection.bind(this) }
+        config: { handler: this.getPaginatedCollection.bind(this) }
       });
       this.router.appRoutes.push({
         method: 'POST', path: '/' + this.name,
@@ -60,10 +60,21 @@ _.extend(
       return page * limit;
     },
 
-    /**
-     * TODO : Add correct HTTP responses codes and headers
-     */
     getCollection: function(request) {
+      var self = this;
+      var limit = this.getLimit(request.query);
+      var skip = this.getSkip(request.query, limit);
+      this.model
+        .find({})
+        .limit(limit).skip(skip)
+        .exec(function(err, model) {
+          self.checkHasBeenFound(
+            request, err, model
+          );
+        });
+    },
+
+    getPaginatedCollection: function(request) {
       var self = this;
       var limit = this.getLimit(request.query);
       var skip = this.getSkip(request.query, limit);
