@@ -8,6 +8,11 @@ var settings = module.exports = {
       host: 'localhost',
       port: 27017
     },
+    display: {
+      // Default limit
+      itemsPerPage: 9,
+      maxItemsPerPage: 30 // ?limit=x&page=y
+    },
     models: {
       path: __dirname + '/../models/'
     },

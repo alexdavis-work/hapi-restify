@@ -43,20 +43,38 @@ _.extend(
       });
     },
 
+    getLimit: function(query) {
+      var limit = this.router.options.app.display.itemsPerPage;
+      if (query && query.limit)  {
+        var userLimit = parseInt(query.limit);
+        if (userLimit <= this.router.options.app.display.maxItemsPerPage) {
+          limit = userLimit;
+        }
+      }
+      return limit;
+    },
+
+    getSkip: function(query, limit) {
+      var page = (query && query.page) ?
+        parseInt(query.page) : 0;
+      return page * limit;
+    },
+
     /**
      * TODO : Add correct HTTP responses codes and headers
      */
-
     getCollection: function(request) {
       var self = this;
-      this.model.find(
-        {},
-        function(err, model) {
+      var limit = this.getLimit(request.query);
+      var skip = this.getSkip(request.query, limit);
+      this.model
+        .find({})
+        .limit(limit).skip(skip)
+        .exec(function(err, model) {
           self.checkHasBeenFound(
             request, err, model
           );
-        }
-      );
+        });
     },
 
     getModel: function(request) {
@@ -191,7 +209,7 @@ _.extend(
       } else {
         if (typeof successCallback !== 'function') {
           var response = new Hapi.response.Obj(model);
-          response.code(201);
+          response.code(validCode);
           request.reply(response);
         } else {
           successCallback(model);

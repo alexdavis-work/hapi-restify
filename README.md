@@ -1,7 +1,7 @@
 Hapi-Restify
 =================
 
-REST API with HAPI. Built from your Mongo models `version 0.0.2-beta`
+REST API with HAPI. Built from your Mongo models `version 0.0.2-alpha`
 
 ## Installation
 ```bash
@@ -10,13 +10,13 @@ npm install hapi-restify
 
 ## Use
 ```js
-var Restify = require('hapi-restify'),,
-    settings = require('./settings/main');
+var Restify = require('hapi-restify'),
+    settings = require('./settings/settings');
 
-var http = Restify.createServer(
+var myApp = Restify.createApplication(
   settings,
   function () {
-    http.start(); // Server is now listening at http://localhost:33000/
+    myApp.start(); // Server is now listening at http://localhost:33000/
   }
 );
 
