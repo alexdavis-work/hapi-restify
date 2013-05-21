@@ -42,6 +42,13 @@ var settings = module.exports = {
      port: 27017
    },
 
+   // Display options
+   display: {
+     // Default limit
+     itemsPerPage: 9,
+     maxItemsPerPage: 30 // ?limit=x&page=y
+   },
+
    // Models directory
    models: { path: __dirname + '/../models/' },
 

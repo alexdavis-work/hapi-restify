@@ -1,6 +1,6 @@
-var _ = require('lodash')
-  , Hapi = require('hapi')
-  , Mongoose = require('mongoose');
+var _ = require('lodash'),
+    Hapi = require('hapi'),
+    Mongoose = require('mongoose');
 
 /**
  * Base Controller
@@ -70,10 +70,26 @@ _.extend(
       this.model
         .find({})
         .limit(limit).skip(skip)
-        .exec(function(err, model) {
-          self.checkHasBeenFound(
-            request, err, model
-          );
+        .exec(function(err, collection) {
+          if (error || !_.isArray(collection)) {
+            request.reply(
+              new Hapi.error.internal(
+                'Error retrieving collection'
+              )
+            );
+          } else {
+            self.model.count({}).exec(
+              function(err, total) {
+                var response = {};
+                response.data = collection;
+                response.items = total;
+                response.pages = Math.ceil(total/limit);
+                response.currentPage =  (request.query && request.query.page) ?
+                  parseInt(request.query.page) : 0;
+                request.reply(response);
+              }
+            );
+          }
         });
     },
 
