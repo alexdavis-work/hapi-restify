@@ -13,6 +13,7 @@ var Controller = module.exports = function Controller(options) {
   if (!options || !options.noModel) {
     this.model = this.db.model(this.name);
   }
+  this.collectionNotPaginated = false;
   this.router = options.router;
 };
 
@@ -21,9 +22,11 @@ _.extend(
   {
     init: function () {
       // Push REST routes for the controller
+      var collectionMethod = (this.collectionNotPaginated) ?
+        'getCollection' : 'getPaginatedCollection';
       this.router.appRoutes.push({
         method: 'GET', path: '/' + this.name,
-        config: { handler: this.getPaginatedCollection.bind(this) }
+        config: { handler: this[collectionMethod].bind(this) }
       });
       this.router.appRoutes.push({
         method: 'POST', path: '/' + this.name,
