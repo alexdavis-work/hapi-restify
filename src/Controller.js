@@ -59,8 +59,8 @@ _.extend(
 
     getSkip: function(query, limit) {
       var page = (query && query.page) ?
-        parseInt(query.page) : 0;
-      return page * limit;
+        parseInt(query.page) : 1;
+      return (page - 1) * limit;
     },
 
     getCollection: function(request) {
@@ -99,7 +99,7 @@ _.extend(
                 response.items = total;
                 response.pages = Math.ceil(total/limit);
                 response.currentPage =  (request.query && request.query.page) ?
-                  parseInt(request.query.page) : 0;
+                  parseInt(request.query.page) : 1;
                 request.reply(response);
               }
             );
