@@ -37,7 +37,7 @@ var settings = module.exports = {
 
    // Mongo database settings
    db: {
-     name: 'surimmo',
+     name: 'mydatabase',
      host: 'localhost',
      port: 27017
    },

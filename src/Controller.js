@@ -46,10 +46,10 @@ _.extend(
       });
     },
 
-    getLimit: function(query) {
+    getLimit: function(paramList) {
       var limit = this.router.options.app.display.itemsPerPage;
-      if (query && query.limit)  {
-        var userLimit = parseInt(query.limit);
+      if (paramList && paramList.limit)  {
+        var userLimit = parseInt(paramList.limit);
         if (userLimit <= this.router.options.app.display.maxItemsPerPage) {
           limit = userLimit;
         }
@@ -57,9 +57,9 @@ _.extend(
       return limit;
     },
 
-    getSkip: function(query, limit) {
-      var page = (query && query.page) ?
-        parseInt(query.page) : 1;
+    getSkip: function(paramList, limit) {
+      var page = (paramList && paramList.page) ?
+        parseInt(paramList.page) : 1;
       return (page - 1) * limit;
     },
 

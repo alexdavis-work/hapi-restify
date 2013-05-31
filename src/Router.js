@@ -48,11 +48,7 @@ _.extend(
         name: 'index',
         db: this.options.app.db,
         noModel: true
-      });
-      this.appRoutes.push({
-        method: 'GET', path: '/',
-        config: { handler: controller.indexAction.bind(controller) }
-      });
+      }).init();
     },
 
     initialize: function () {

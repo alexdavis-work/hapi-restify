@@ -18,6 +18,13 @@ _.extend(
 _.extend(
   IndexController.prototype,
   {
+    init: function () {
+      this.router.appRoutes.push({
+        method: 'GET', path: '/',
+        config: { handler: this.indexAction.bind(this) }
+      });
+    },
+
     indexAction: function (request) {
       request.reply({
         ping: true

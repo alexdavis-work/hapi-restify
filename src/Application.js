@@ -32,7 +32,7 @@ _.extend(
 
     createDatabase: function () {
       // Database connection
-      this.server.db = Mongoose.createConnection(
+      this.db = Mongoose.createConnection(
         'mongodb://' + this.options.app.db.host +
           ':' + this.options.app.db.port +
           '/' + this.options.app.db.name
@@ -46,7 +46,7 @@ _.extend(
       var router = new Router(
         _.extend(
           this.options,
-          { db: this.server.db }
+          { db: this.db }
         )
       );
       var self = this;
@@ -73,7 +73,7 @@ _.extend(
                 self.options.app.init.call(this);
               }
               if (typeof callback === 'function') {
-                callback();
+                callback(self);
               }
             }
           );
