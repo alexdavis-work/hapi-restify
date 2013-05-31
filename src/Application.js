@@ -58,17 +58,15 @@ _.extend(
               self.server.addRoutes(
                 router.getRoutes()
               );
-              /*self.server.ext('onPreResponse', function (request, next) {
+              self.server.ext('onPreResponse', function (request, next) {
                 var response = request.response();
-                if (response.isBoom) {
-                  console.log(response);
-                  next(
-                    JSON.stringify(response.data)
-                  );
-                } else {
-                  return next();
+                if (response.raw && response.raw.isRestifyError) {
+                  delete response.raw.isRestifyError;
+                  response.code(response.raw.code);
+                  response._payload = [ JSON.stringify(response.raw) ];
                 }
-              });*/
+                return next();
+              });
               if (typeof self.options.app.init === 'function') {
                 self.options.app.init.call(this);
               }
