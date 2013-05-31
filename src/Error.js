@@ -1,8 +1,7 @@
 var _ = require('lodash');
 
 /**
- * Index controller
- * Just ping me
+ * Base error
  * @type {Function}
  */
 var Error = module.exports = function Error(data) {
@@ -12,10 +11,3 @@ var Error = module.exports = function Error(data) {
   this.fields = data.fields || null;
   this.data = data.data || null;
 };
-
-_.extend(
-  Error.prototype,
-  {
-
-  }
-);
