@@ -1,6 +1,7 @@
 var _ = require('lodash'),
     Hapi = require('hapi'),
-    Mongoose = require('mongoose');
+    Mongoose = require('mongoose'),
+    Error = require('./Error');
 
 /**
  * Base Controller
@@ -227,10 +228,17 @@ _.extend(
           */
         }
         if (typeof errorCallback !== 'function') {
-          var response = (errorCode === 404) ?
-            new Hapi.error.notFound(error.message) :
-            new Hapi.error.badRequest(error.message);
-          response.code = errorCode;
+          var response = new Error(
+            _.extend(
+              error,
+              {
+                message: error.message,
+                code: errorCode,
+                type: error.name || null,
+                data: error.errors || null
+              }
+            )
+          );
           request.reply(response);
         } else {
           errorCallback(error);
