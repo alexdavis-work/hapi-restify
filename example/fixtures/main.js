@@ -1,4 +1,4 @@
-var Fixtures = require('mongoose-fixtures');
+var Fixtures = require('pow-mongoose-fixtures');
 
 module.exports = function (db) {
 

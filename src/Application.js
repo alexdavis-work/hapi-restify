@@ -35,7 +35,8 @@ _.extend(
       this.db = Mongoose.createConnection(
         'mongodb://' + this.options.app.db.host +
           ':' + this.options.app.db.port +
-          '/' + this.options.app.db.name
+          '/' + this.options.app.db.name,
+        this.options.app.db.options || {}
       );
       return this;
     },

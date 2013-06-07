@@ -1,7 +1,7 @@
 Hapi-Restify
 =================
 
-REST API with HAPI. Built from your Mongo models `version 0.0.2-alpha`
+REST API with HAPI. Built from your Mongo models `version 0.0.2-beta`
 
 ## Installation
 ```bash
