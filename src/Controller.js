@@ -86,7 +86,7 @@ _.extend(
         .find({})
         .limit(limit).skip(skip)
         .exec(function(err, collection) {
-          if (error || !_.isArray(collection)) {
+          if (err || !_.isArray(collection)) {
             request.reply(
               new Hapi.error.internal(
                 'Error retrieving collection'
