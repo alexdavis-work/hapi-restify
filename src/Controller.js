@@ -59,7 +59,7 @@ _.extend(
     },
 
     getSkip: function(paramList, limit) {
-      var page = (paramList && paramList.page) ?
+      var page = (paramList && paramList.page > 0) ?
         parseInt(paramList.page) : 1;
       return (page - 1) * limit;
     },
@@ -218,6 +218,7 @@ _.extend(
         if (!error) {
           error = new Error(message);
         } else {
+          console.log(error);
           /**
            * TODO : Displaying thrown errors completely
            * @type {Hapi.response.Obj} || {Hapi.error.*}
