@@ -69,7 +69,7 @@ _.extend(
       var limit = this.getLimit(request.query);
       var skip = this.getSkip(request.query, limit);
       this.model
-        .find(attributes)
+        .find()//attributes)
         .limit(limit).skip(skip)
         .exec(function(err, model) {
           self.checkHasBeenFound(
