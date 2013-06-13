@@ -60,7 +60,7 @@ _.extend(
             self.routes
           );
           if (typeof callback === 'function') {
-            callback();
+            callback(self);
           }
         }
       );
