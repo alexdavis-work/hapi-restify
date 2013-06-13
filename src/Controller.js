@@ -8,14 +8,13 @@ var _ = require('lodash'),
  * Handles basic REST methods
  * @type {Function}
  */
-var Controller = module.exports = function Controller(options) {
-  this.name = options.name;
-  this.db = options.db;
-  if (!options || !options.noModel) {
-    this.model = this.db.model(this.name);
+var Controller = module.exports = function Controller(name, app) {
+  this.name = name;
+  this.app = app;
+  if (this.app.models[name]) {
+    this.model = this.app.db.model(this.name);
   }
   this.collectionNotPaginated = false;
-  this.router = options.router;
 };
 
 _.extend(
@@ -25,33 +24,33 @@ _.extend(
       // Push REST routes for the controller
       var collectionMethod = (this.collectionNotPaginated) ?
         'getCollection' : 'getPaginatedCollection';
-      this.router.appRoutes.push({
+      this.app.routes.push({
         method: 'GET', path: '/' + this.name,
         config: { handler: this[collectionMethod].bind(this) }
       });
-      this.router.appRoutes.push({
+      this.app.routes.push({
         method: 'POST', path: '/' + this.name,
         config: { handler: this.addModel.bind(this) }
       });
-      this.router.appRoutes.push({
+      this.app.routes.push({
         method: 'GET', path: '/' + this.name + '/{id}',
         config: { handler: this.getModel.bind(this) }
       });
-      this.router.appRoutes.push({
+      this.app.routes.push({
         method: 'PATCH', path: '/' + this.name + '/{id}',
         config: { handler: this.updateModel.bind(this) }
       });
-      this.router.appRoutes.push({
+      this.app.routes.push({
         method: 'DELETE', path: '/' + this.name + '/{id}',
         config: { handler: this.deleteModel.bind(this) }
       });
     },
 
     getLimit: function(paramList) {
-      var limit = this.router.options.app.display.itemsPerPage;
+      var limit = this.app.settings.app.display.itemsPerPage;
       if (paramList && paramList.limit)  {
         var userLimit = parseInt(paramList.limit);
-        if (userLimit <= this.router.options.app.display.maxItemsPerPage) {
+        if (userLimit <= this.app.settings.app.display.maxItemsPerPage) {
           limit = userLimit;
         }
       }
@@ -66,10 +65,11 @@ _.extend(
 
     getCollection: function(request) {
       var self = this;
+      //var attributes = {};
       var limit = this.getLimit(request.query);
       var skip = this.getSkip(request.query, limit);
       this.model
-        .find({})
+        .find(attributes)
         .limit(limit).skip(skip)
         .exec(function(err, model) {
           self.checkHasBeenFound(
@@ -78,12 +78,13 @@ _.extend(
         });
     },
 
-    getPaginatedCollection: function(request) {
+    getPaginatedCollection: function(request, attributes) {
       var self = this;
+      //if (!attributes) { attributes = {}; }
       var limit = this.getLimit(request.query);
       var skip = this.getSkip(request.query, limit);
       this.model
-        .find({})
+        .find()//attributes)
         .limit(limit).skip(skip)
         .exec(function(err, collection) {
           if (err || !_.isArray(collection)) {
@@ -218,22 +219,14 @@ _.extend(
         if (!error) {
           error = new Error(message);
         } else {
-          console.log(error);
-          /**
-           * TODO : Displaying thrown errors completely
-           * @type {Hapi.response.Obj} || {Hapi.error.*}
-           * @url https://github.com/spumko/hapi/issues/855
-           *
-          error = new Hapi.response.Obj(error);
-          error.code(400);
-          */
+          debug(error);
         }
         if (typeof errorCallback !== 'function') {
           var response = new Error(
             _.extend(
               error,
               {
-                message: error.message,
+                message: message || error.message,
                 code: errorCode,
                 type: error.name || null,
                 data: error.errors || null

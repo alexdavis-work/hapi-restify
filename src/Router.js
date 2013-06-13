@@ -1,7 +1,5 @@
 var _ = require('lodash')
-  , fs = require('fs')
-  , Mongoose = require('mongoose')
-  , Controller = require('./Controller');
+  , fs = require('fs');
 
 /**
  * Router
@@ -9,18 +7,43 @@ var _ = require('lodash')
  * to model/controllers
  * @type {Function}
  */
-var Router = module.exports = function Router(options) {
-  this.options = options;
+var Router = module.exports = function Router(modelPath, controllerPath) {
+  this.modelPath = modelPath;
+  this.controllerPath = controllerPath;
 };
 
 _.extend(
   Router.prototype,
   {
+    /**
+     * Walk directories to find
+     * controllers & models
+     * @param callback {Function}
+     */
+    searchModules: function (callback) {
+      var self = this;
+      this.findModels(
+        function () {
+          self.findControllers(
+            function () {
+              if (!self.controllers.index) {
+                self.addIndexController();
+              }
+              callback();
+            }
+          );
+        }
+      );
+    },
 
+    /**
+     * Walk the model directory
+     * @param callback {Function}
+     */
     findModels: function (callback) {
       this.walkDir(
         'models',
-        this.options.app.models.path,
+        this.modelPath,
         function(path, file, array) {
           array[file] = require(path);
         },
@@ -28,10 +51,14 @@ _.extend(
       );
     },
 
+    /**
+     * Walk the controller directory
+     * @param callback {Function}
+     */
     findControllers: function (callback) {
       this.walkDir(
         'controllers',
-        this.options.app.controllers.path,
+        this.controllerPath,
         function(path, file, array) {
           array[file] = require(path);
         },
@@ -39,49 +66,24 @@ _.extend(
       );
     },
 
+    /**
+     * Add the default "ping"
+     * Index controller
+     */
     addIndexController: function () {
-      var controllerClass = require(
+      console.log('Registering controllers: "index"');
+      this.controllers.index = require(
         './Controller/Index'
       );
-      var controller = new controllerClass({
-        router: this,
-        name: 'index',
-        db: this.options.app.db,
-        noModel: true
-      }).init();
     },
 
-    initialize: function () {
-      this.appRoutes = [];
-      if (!this.controllers.index) {
-        this.addIndexController();
-      }
-      for (var name in this.models) {
-        // Instantiate model/controller
-        // for the current schema
-        this.models[name](Mongoose);
-        if (this.controllers[name]) {
-          var controllerClass = this.controllers[name];
-        } else {
-          var controllerClass = Controller;
-        }
-        var controller = new controllerClass({
-          router: this,
-          name: name,
-          db: this.options.db
-        });
-        controller.init();
-      }
-      return this;
-    },
-
-    getRoutes: function () {
-      if (!this.appRoutes) {
-        this.initialize();
-      }
-      return this.appRoutes;
-    },
-
+    /**
+     * Walk a directory & read files
+     * @param type {String}
+     * @dir type {String}
+     * @processFn type {Function}
+     * @callback type {Function}
+     */
     walkDir: function(type, dir, processFn, callback) {
       var self = this;
       this[type] = {};

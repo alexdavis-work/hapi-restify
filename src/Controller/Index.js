@@ -19,7 +19,7 @@ _.extend(
   IndexController.prototype,
   {
     init: function () {
-      this.router.appRoutes.push({
+      this.app.routes.push({
         method: 'GET', path: '/',
         config: { handler: this.indexAction.bind(this) }
       });
