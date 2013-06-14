@@ -219,7 +219,7 @@ _.extend(
         if (!error) {
           error = new Error(message);
         } else {
-          debug(error);
+          console.log(error);
         }
         if (typeof errorCallback !== 'function') {
           var response = new Error(
