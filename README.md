@@ -1,16 +1,16 @@
 Hapi-Restify
 =================
 
-REST API with HAPI. Built from your Mongo models `version 0.0.3`
+REST API with HAPI 2.1.x. Built from your Mongo models `version 0.0.3`
 
 ## Installation
 ```bash
-npm install hapi-restify
+npm install hapi2restify
 ```
 
 ## Use
 ```js
-var Restify = require('hapi-restify'),
+var Restify = require('hapi2restify'),
     settings = require('./settings/settings');
 
 var myApp = Restify.createApplication(

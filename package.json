@@ -1,30 +1,34 @@
 {
-  "name": "hapi-restify",
-  "description": "Simple framework to implement a REST Api with HAPI",
+  "name": "hapi2restify",
+  "description": "Simple framework to implement a REST Api with HAPI 2.1.x, derived from version for Hapi 1 by Geoffroy Pierret",
   "maintainers": [
     {
-      "name": "Geoffroy Pierret",
-      "url": "https://github.com/gpierret"
+      "name": "Alexander Fink",
+      "url": "https://github.com/alexanderjfink"
     }
   ],
   "contributors": [
     {
       "name": "Geoffroy Pierret",
       "url": "https://github.com/gpierret"
+    },
+    {
+      "name": "Alexander Fink",
+      "url": "https://github.com/alexanderjfink"
     }
   ],
-  "version": "0.0.3",
+  "version": "0.0.4",
   "repository": {
     "type": "git",
-    "url": "https://github.com/gpierret/hapi-restify.git"
+    "url": "https://github.com/alexanderjfink/hapi2restify.git"
   },
   "bugs": {
-    "url": "https://github.com/gpierret/hapi-restify.git/issues"
+    "url": "https://github.com/alexanderjfink/hapi2restify.git/issues"
   },
   "licenses": [
     {
       "type": "MIT",
-      "url": "http://github.com/gpierret/hapi-restify.git/raw/master/LICENSE"
+      "url": "http://github.com/alexanderjfink/hapi2restify.git/raw/master/LICENSE"
     }
   ],
   "engines": {
@@ -33,7 +37,7 @@
   "dependencies": {
     "lodash": ">= 1.2.1",
     "mongoose": ">= 3.6.8",
-    "hapi": ">= 1.1.0"
+    "hapi": "latest"
   },
   "main": "index.js",
   "readmeFilename": "README.md",

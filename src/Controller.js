@@ -63,7 +63,7 @@ _.extend(
       return (page - 1) * limit;
     },
 
-    getCollection: function(request) {
+    getCollection: function(request, reply) {
       var self = this;
       //var attributes = {};
       var limit = this.getLimit(request.query);
@@ -73,12 +73,12 @@ _.extend(
         .limit(limit).skip(skip)
         .exec(function(err, model) {
           self.checkHasBeenFound(
-            request, err, model
+            request, reply, err, model
           );
         });
     },
 
-    getPaginatedCollection: function(request, attributes) {
+    getPaginatedCollection: function(request, reply) {
       var self = this;
       //if (!attributes) { attributes = {}; }
       var limit = this.getLimit(request.query);
@@ -88,7 +88,7 @@ _.extend(
         .limit(limit).skip(skip)
         .exec(function(err, collection) {
           if (err || !_.isArray(collection)) {
-            request.reply(
+            reply(
               new Hapi.error.internal(
                 'Error retrieving collection'
               )
@@ -102,20 +102,21 @@ _.extend(
                 response.pages = Math.ceil(total/limit);
                 response.currentPage =  (request.query && request.query.page) ?
                   parseInt(request.query.page) : 1;
-                request.reply(response);
+                reply(response);
               }
             );
           }
         });
     },
 
-    getModel: function(request) {
+    getModel: function(request, reply) {
       var self = this;
       this.model.findById(
         request.params.id,
         function(err, model) {
           self.checkHasBeenFound(
             request,
+            reply,
             err, model,
             request.params.id
           );
@@ -123,31 +124,33 @@ _.extend(
       );
     },
 
-    deleteModel: function(request) {
+    deleteModel: function(request, reply) {
       var self = this;
       this.model.findByIdAndRemove(
         request.params.id,
         function(err, model) {
           self.checkHasBeenDeleted(
             request,
+            reply,
             err, model,
             request.params.id,
             function () {
               var response = new Hapi.response.Obj({ deleted: true });
-              request.reply(response);
+              reply(response);
             }
           );
         }
       );
     },
 
-    updateModel: function(request) {
+    updateModel: function(request, reply) {
       var self = this;
       this.model.findById(
         request.params.id,
         function(err, model) {
           self.checkHasBeenFound(
             request,
+            reply,
             err, model,
             request.params.id,
             function(model) {
@@ -170,7 +173,7 @@ _.extend(
       );
     },
 
-    addModel: function(request) {
+    addModel: function(request, reply) {
       var self = this;
       var model = new this.model(
         request.payload
@@ -178,6 +181,7 @@ _.extend(
         function(err, model) {
           self.checkHasBeenAdded(
             request,
+            reply,
             err, model,
             request.payload
           );
@@ -185,12 +189,13 @@ _.extend(
       );
     },
 
-    findModel: function(request, where, id) {
+    findModel: function(request, reply, where, id) {
       this.model.findOne(
         where,
         function(err, model) {
           self.checkHasBeenFound(
             request,
+            reply,
             err, model,
             id || ''
           );
@@ -198,23 +203,23 @@ _.extend(
       );
     },
 
-    checkHasBeenFound: function (request, error, model, id, successCallback, errorCallback) {
-      this.globalCheck(request, error, model, id, 200, 404,'Item "' + id + '" could not be found', successCallback, errorCallback);
+    checkHasBeenFound: function (request, reply, error, model, id, successCallback, errorCallback) {
+      this.globalCheck(request, reply, error, model, id, 200, 404,'Item "' + id + '" could not be found', successCallback, errorCallback);
     },
 
-    checkHasBeenAdded: function (request, error, model, params, successCallback, errorCallback) {
-      this.globalCheck(request, error, model, params, 201, 400,  'Item could not be created', successCallback, errorCallback);
+    checkHasBeenAdded: function (request, reply, error, model, params, successCallback, errorCallback) {
+      this.globalCheck(request, reply, error, model, params, 201, 400,  'Item could not be created', successCallback, errorCallback);
     },
 
-    checkHasBeenUpdated: function (request, error, model, id, params, successCallback, errorCallback) {
-      this.globalCheck(request, error, model, params, 200, 400, 'Item "' + id + '" could not be updated', successCallback, errorCallback);
+    checkHasBeenUpdated: function (request, reply, error, model, id, params, successCallback, errorCallback) {
+      this.globalCheck(request, reply, error, model, params, 200, 400, 'Item "' + id + '" could not be updated', successCallback, errorCallback);
     },
 
-    checkHasBeenDeleted: function (request, error, model, id, successCallback, errorCallback) {
-      this.globalCheck(request, error, model, id, 200, 400, 'Item "' + id + '" could not be deleted', successCallback, errorCallback);
+    checkHasBeenDeleted: function (request, reply, error, model, id, successCallback, errorCallback) {
+      this.globalCheck(request, reply, error, model, id, 200, 400, 'Item "' + id + '" could not be deleted', successCallback, errorCallback);
     },
 
-    globalCheck: function (request, error, model, params, validCode, errorCode, message, successCallback, errorCallback) {
+    globalCheck: function (request, reply, error, model, params, validCode, errorCode, message, successCallback, errorCallback) {
       if (error || !model) {
         if (!error) {
           error = new Error(message);
@@ -233,16 +238,17 @@ _.extend(
               }
             )
           );
-          request.reply(response);
+          reply(response);
         } else {
           errorCallback(error);
         }
 
       } else {
         if (typeof successCallback !== 'function') {
-          var response = new Hapi.response.Obj(model);
-          response.code(validCode);
-          request.reply(response);
+          reply(model);
+          // var response = new Hapi.response.Obj(model);
+          // response.code(validCode);
+          // reply(response);
         } else {
           successCallback(model);
         }

@@ -25,8 +25,8 @@ _.extend(
       });
     },
 
-    indexAction: function (request) {
-      request.reply({
+    indexAction: function (request, reply) {
+      reply({
         ping: true
       });
     }

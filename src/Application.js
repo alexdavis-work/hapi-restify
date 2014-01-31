@@ -56,7 +56,7 @@ _.extend(
           self.createModules();
           self.recognizeRestifyErrors();
           self.startCustomInitialization();
-          self.server.addRoutes(
+          self.server.route(
             self.routes
           );
           if (typeof callback === 'function') {
@@ -93,14 +93,14 @@ _.extend(
     },
 
     recognizeRestifyErrors: function () {
-      this.server.ext('onPreResponse', function (request, next) {
-        var response = request.response();
+      this.server.ext('onPreResponse', function (request, reply) {
+        var response = request.response;
         if (response.raw && response.raw.isRestifyError) {
           delete response.raw.isRestifyError;
           response.code(response.raw.code);
           response._payload = [ JSON.stringify(response.raw) ];
         }
-        return next();
+        reply(response);
       });
     },
 
