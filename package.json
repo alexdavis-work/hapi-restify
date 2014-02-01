@@ -3,8 +3,8 @@
   "description": "Simple framework to implement a REST Api with HAPI 2.1.x, derived from version for Hapi 1 by Geoffroy Pierret",
   "maintainers": [
     {
-      "name": "Alexander Fink",
-      "url": "https://github.com/alexanderjfink"
+      "name": "Geoffroy Pierret",
+      "url": "https://github.com/gpierret"
     }
   ],
   "contributors": [
@@ -20,15 +20,15 @@
   "version": "0.0.4",
   "repository": {
     "type": "git",
-    "url": "https://github.com/alexanderjfink/hapi2restify.git"
+    "url": "https://github.com/alexanderjfink/hapi-restify.git"
   },
   "bugs": {
-    "url": "https://github.com/alexanderjfink/hapi2restify.git/issues"
+    "url": "https://github.com/alexanderjfink/hapi-restify.git/issues"
   },
   "licenses": [
     {
       "type": "MIT",
-      "url": "http://github.com/alexanderjfink/hapi2restify.git/raw/master/LICENSE"
+      "url": "http://github.com/alexanderjfink/hapi-restify.git/raw/master/LICENSE"
     }
   ],
   "engines": {
