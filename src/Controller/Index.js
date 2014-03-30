@@ -1,5 +1,5 @@
-var _ = require('lodash')
-  , Controller = require('./../Controller');
+var _ = require('lodash'),
+	Controller = require('./../Controller');
 
 /**
  * Index controller
@@ -7,28 +7,28 @@ var _ = require('lodash')
  * @type {Function}
  */
 var IndexController = module.exports = function IndexController() {
-  Controller.prototype.constructor.apply(this, arguments);
+	Controller.prototype.constructor.apply(this, arguments);
 };
 
 _.extend(
-  IndexController.prototype,
-  Controller.prototype
+	IndexController.prototype,
+	Controller.prototype
 );
 
 _.extend(
-  IndexController.prototype,
-  {
-    init: function () {
-      this.app.routes.push({
-        method: 'GET', path: '/',
-        config: { handler: this.indexAction.bind(this) }
-      });
-    },
+	IndexController.prototype,
+	{
+		init: function () {
+			this.app.routes.push({
+				method: 'GET', path: '/',
+				config: { handler: this.indexAction.bind(this) }
+			});
+		},
 
-    indexAction: function (request, reply) {
-      reply({
-        ping: true
-      });
-    }
-  }
+		indexAction: function (request, reply) {
+			reply({
+				ping: true
+			});
+		}
+	}
 );

@@ -1,11 +1,14 @@
 Hapi-Restify
 =================
 
-REST API with HAPI 2.1.x. Built from your Mongo models `version 0.0.3`
+REST API with HAPI 2.1.x. Built from your Mongo models `version 0.1.0`
+
+## For Hapi 1.x
+Version 0.0.3 of hapi-restify works with Hapi 1.x. Because of breaking changes introduced in Hapi 2.x, Hapi-restify version 0.1.0 and upward were fixed to work with Hapi 2.x.
 
 ## Installation
 ```bash
-npm install hapi2-restify
+npm install hapi-restify
 ```
 
 ## Use
