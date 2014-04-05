@@ -1,5 +1,5 @@
 var _ = require('lodash')
-,   Restify = require('hapi-restify');
+,   Restify = require('../../');
 
 var LolCatController = module.exports = function LolCatController() {
   Restify.Controller.prototype.constructor.apply(this, arguments);
@@ -21,11 +21,11 @@ _.extend(
       });
     },
 
-    getTopLolcats: function (request) {
+    getTopLolcats: function (request, reply) {
       this.model.find({})
         .sort({'views': -1 })
         .exec(function(err, model) {
-          request.reply(err || model);
+          reply(err || model);
         });
     }
   }

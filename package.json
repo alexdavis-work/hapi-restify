@@ -1,56 +1,56 @@
 {
-	"name": "hapi-restify",
-	"description": "Simple framework to implement a REST Api with HAPI 2.1.x (see README.md for Hapi 1.x compatibility).",
-	"maintainers": [
-		{
-			"name": "Geoffroy Pierret",
-			"url": "https://github.com/gpierret"
-		},
-		{
-			"name": "Alexander Fink",
-			"url": "https://github.com/alexanderjfink"
-		}
-	],
-	"contributors": [
-		{
-			"name": "Geoffroy Pierret",
-			"url": "https://github.com/gpierret"
-		},
-		{
-			"name": "Alexander Fink",
-			"url": "https://github.com/alexanderjfink"
-		}
-	],
-	"version": "0.1.0",
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/gpierret/hapi-restify.git"
-	},
-	"bugs": {
-		"url": "https://github.com/gpierret/hapi-restify.git/issues"
-	},
-	"licenses": [
-		{
-			"type": "MIT",
-			"url": "http://github.com/gpierret/hapi-restify.git/raw/master/LICENSE"
-		}
-	],
-	"engines": {
-		"node": ">= 0.10.5"
-	},
-	"dependencies": {
-		"lodash": ">= 1.2.1",
-		"mongoose": ">= 3.6.8",
-		"hapi": "latest"
-	},
-	"main": "index.js",
-	"readmeFilename": "README.md",
-	"keywords": [
-		"hapi",
-		"api",
-		"rest",
-		"restify",
-		"mongo",
-		"mongoose"
-	]
+  "name": "hapi-restify",
+  "description": "Simple framework to implement a REST Api with HAPI",
+  "maintainers": [
+    {
+      "name": "Geoffroy Pierret",
+      "url": "https://github.com/gpierret"
+    },
+    {
+      "name": "Alexander Fink",
+      "url": "https://github.com/alexanderjfink"
+    }
+  ],
+  "contributors": [
+    {
+      "name": "Geoffroy Pierret",
+      "url": "https://github.com/gpierret"
+    },
+    {
+      "name": "Alexander Fink",
+      "url": "https://github.com/alexanderjfink"
+    }
+  ],
+  "version": "0.1.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gpierret/hapi-restify.git"
+  },
+  "bugs": {
+    "url": "https://github.com/gpierret/hapi-restify.git/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://github.com/gpierret/hapi-restify.git/raw/master/LICENSE"
+    }
+  ],
+  "engines": {
+    "node": ">= 0.10.5"
+  },
+  "dependencies": {
+    "lodash": "latest",
+    "mongoose": "3.x",
+    "hapi": "3.x"
+  },
+  "main": "index.js",
+  "readmeFilename": "README.md",
+  "keywords": [
+    "hapi",
+    "api",
+    "rest",
+    "restify",
+    "mongo",
+    "mongoose"
+  ]
 }

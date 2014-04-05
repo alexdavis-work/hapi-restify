@@ -4,11 +4,11 @@ module.exports = function (db) {
 
   var data = {};
 
-  data.lolcat = require('./lolcat')(data);
+  data.lolcat = require('./lolcat')();
 
   // Adapt data models
   // from objects to array
-  var newData = [];
+  var newData = {};
   for (var model in data) {
     newData[model] = [];
     for (var item in data[model]) {
