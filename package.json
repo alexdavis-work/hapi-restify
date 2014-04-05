@@ -21,7 +21,7 @@
       "url": "https://github.com/alexanderjfink"
     }
   ],
-  "version": "0.1.0",
+  "version": "0.1.1",
   "repository": {
     "type": "git",
     "url": "https://github.com/gpierret/hapi-restify.git"
