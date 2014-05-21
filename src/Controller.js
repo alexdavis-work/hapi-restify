@@ -161,6 +161,7 @@ _.extend(
 								function(err, model) {
 									self.checkHasBeenUpdated(
 										request,
+										reply,
 										err, model,
 										request.params.id,
 										request.payload
