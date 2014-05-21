@@ -135,8 +135,7 @@ _.extend(
 						err, model,
 						request.params.id,
 						function () {
-							var response = new Hapi.response.Obj({ deleted: true });
-							reply(response);
+							reply({ deleted: true });
 						}
 					);
 				}
