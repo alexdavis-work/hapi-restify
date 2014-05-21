@@ -9,6 +9,10 @@
     {
       "name": "Alexander Fink",
       "url": "https://github.com/alexanderjfink"
+    },
+    {
+      "name": "Emil Stenqvist",
+      "url": "https://github.com/emilisto"
     }
   ],
   "contributors": [
@@ -19,9 +23,13 @@
     {
       "name": "Alexander Fink",
       "url": "https://github.com/alexanderjfink"
+    },
+    {
+      "name": "Emil Stenqvist",
+      "url": "https://github.com/emilisto"
     }
   ],
-  "version": "0.1.1",
+  "version": "0.1.2",
   "repository": {
     "type": "git",
     "url": "https://github.com/gpierret/hapi-restify.git"
