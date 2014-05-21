@@ -135,8 +135,7 @@ _.extend(
 						err, model,
 						request.params.id,
 						function () {
-							var response = new Hapi.response.Obj({ deleted: true });
-							reply(response);
+							reply({ deleted: true });
 						}
 					);
 				}
@@ -161,6 +160,7 @@ _.extend(
 								function(err, model) {
 									self.checkHasBeenUpdated(
 										request,
+										reply,
 										err, model,
 										request.params.id,
 										request.payload
